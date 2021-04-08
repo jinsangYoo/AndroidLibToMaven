@@ -1,0 +1,143 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                pom {
+                    name = 'AndroidLibToMaven Library'
+                    description = 'A concise description of AndroidLibToMaven library'
+                    url = 'https://github.com/jinsangYoo/AndroidLibToMaven.git'
+                    inceptionYear = '2018'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'jinsang'
+                            name = 'jinsang'
+                            email = 'demojinsang@gmail.com'
+                            organization = 'home'
+                            organizationUrl = 'https://github.com/jinsangYoo/AndroidLibToMaven'
+                        }
+                    }
+
+                    scm {
+                        url = 'https://github.com/jinsangYoo/AndroidLibToMaven.git'
+                    }
+                }
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = PACKAGE_NAME
+                artifactId = MODULE_NAME
+                version = SDK_VERSION
+
+                artifact(sourceJar)
+                artifact(javadocJar)
+                artifact("$buildDir/outputs/aar/$MODULE_NAME-release.aar")
+            }
+            // Creates a Maven publication called “debug”.
+            debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+                pom {
+                    name = 'AndroidLibToMaven Library'
+                    description = 'A concise description of AndroidLibToMaven library'
+                    url = 'https://github.com/jinsangYoo/AndroidLibToMaven.git'
+                    inceptionYear = '2018'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'jinsang'
+                            name = 'jinsang'
+                            email = 'demojinsang@gmail.com'
+                            organization = 'home'
+                            organizationUrl = 'https://github.com/jinsangYoo/AndroidLibToMaven'
+                        }
+                    }
+
+                    scm {
+                        url = 'https://github.com/jinsangYoo/AndroidLibToMaven.git'
+                    }
+                }
+
+                groupId = PACKAGE_NAME
+                artifactId = "$MODULE_NAME-debug"
+                version = SDK_VERSION
+
+                artifact(sourceJar)
+                artifact(javadocJar)
+                artifact("$buildDir/outputs/aar/$MODULE_NAME-debug.aar")
+            }
+        }
+        repositories {
+            maven {
+                url "$buildDir/repo"
+            }
+        }
+    }
+}
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}

@@ -1,0 +1,3 @@
+include ':AndroidLibToMaven'
+include ':app'
+rootProject.name = "AndroidLib"
