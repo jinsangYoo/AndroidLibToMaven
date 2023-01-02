@@ -7,10 +7,8 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 32
+        targetSdkVersion rootProject.ext.targetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -26,6 +24,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.github.jinsangYoo'
 }
 
 // Because the components are created only during the afterEvaluate phase, you must
@@ -33,8 +32,7 @@ android {
 afterEvaluate {
     publishing {
         publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
+            mavenJava(MavenPublication) {
                 pom {
                     name = 'AndroidLibToMaven Library'
                     description = 'A concise description of AndroidLibToMaven library'
@@ -71,44 +69,6 @@ afterEvaluate {
                 artifact(javadocJar)
                 artifact("$buildDir/outputs/aar/$MODULE_NAME-release.aar")
             }
-            // Creates a Maven publication called “debug”.
-            debug(MavenPublication) {
-                // Applies the component for the debug build variant.
-                pom {
-                    name = 'AndroidLibToMaven Library'
-                    description = 'A concise description of AndroidLibToMaven library'
-                    url = 'https://github.com/jinsangYoo/AndroidLibToMaven.git'
-                    inceptionYear = '2018'
-
-                    licenses {
-                        license {
-                            name = 'The Apache License, Version 2.0'
-                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id = 'jinsang'
-                            name = 'jinsang'
-                            email = 'demojinsang@gmail.com'
-                            organization = 'home'
-                            organizationUrl = 'https://github.com/jinsangYoo/AndroidLibToMaven'
-                        }
-                    }
-
-                    scm {
-                        url = 'https://github.com/jinsangYoo/AndroidLibToMaven.git'
-                    }
-                }
-
-                groupId = PACKAGE_NAME
-                artifactId = "$MODULE_NAME-debug"
-                version = SDK_VERSION
-
-                artifact(sourceJar)
-                artifact(javadocJar)
-                artifact("$buildDir/outputs/aar/$MODULE_NAME-debug.aar")
-            }
         }
         repositories {
             maven {
@@ -135,9 +95,9 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }
