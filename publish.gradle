@@ -1,0 +1,15 @@
+ext {
+    PUBLISH_GROUP_ID = 'com.github.jinsangYoo'
+    PUBLISH_VERSION = '1.3.1'
+    PUBLISH_ARTIFACT_ID = 'AndroidLibToMaven'
+    PUBLISH_DESCRIPTION = 'A concise description of AndroidLibToMaven library'
+    PUBLISH_URL = 'https://github.com/jinsangYoo/AndroidLibToMaven'
+    PUBLISH_LICENSE_NAME = 'The Apache License, Version 2.0'
+    PUBLISH_LICENSE_URL = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    PUBLISH_DEVELOPER_ID = 'jinsang'
+    PUBLISH_DEVELOPER_NAME = 'jinsang yoo'
+    PUBLISH_DEVELOPER_EMAIL = 'demojinsang@gmail.com'
+    PUBLISH_SCM_CONNECTION = ''
+    PUBLISH_SCM_DEVELOPER_CONNECTION = ''
+    PUBLISH_SCM_URL = 'https://github.com/jinsangYoo/AndroidLibToMaven.git'
+}
