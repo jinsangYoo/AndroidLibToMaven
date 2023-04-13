@@ -53,6 +53,7 @@ afterEvaluate {
 //                artifact("$buildDir/libs/${project.getName()}-${version}.jar")
                 artifact sourcesJar
                 artifact javadocJar
+                artifact("$rootDir/$MODULE_NAME/build/outputs/aar/$MODULE_NAME-release.aar")
 
                 pom {
                     name = PUBLISH_ARTIFACT_ID

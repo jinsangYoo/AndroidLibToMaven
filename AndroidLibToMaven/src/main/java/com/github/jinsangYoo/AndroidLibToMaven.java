@@ -6,6 +6,6 @@ import android.util.Log;
 public class AndroidLibToMaven {
     @SuppressLint("LongLogTag")
     public static void showToast() {
-        Log.d("AndroidLibToMaven::1_3_1::showToast", "clicked");
+        Log.d("AndroidLibToMaven::1_3_4::showToast", "clicked");
     }
 }
